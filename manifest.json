@@ -7,7 +7,7 @@
     "48": "icons/icon48.png",
     "128": "icons/icon128.png"
   },
-  //"default_locale": "ja",
+  "content_security_policy": "script-src 'self' 'sha256-HyLFqPgEwgk/e0lehJB/UeDMaR8chI7QBpelxKKsXZk='; object-src 'self'",
   "permissions": [
     "bookmarks"
   ],
@@ -26,8 +26,5 @@
     "default_icon": "icons/icon19.png",
     "default_title": "Yet-Another Chrome Bookmark Manager"
   },
-  "options_page": "options.html",
-  "permissions": [
-     "bookmarks"
-  ]
+  "options_page": "options.html"
 }

@@ -85,6 +85,7 @@ function mainfolders_keypress(event, data) {
   }
 }
 
+/*
 window.onload = function() {
   chrome.bookmarks.getTree(function(root) {
     var ul = bookmarks2foldersTree(root[0], 1)
@@ -101,4 +102,4 @@ window.onload = function() {
     $("#mainfolders").keypress(mainfolders_keypress);
   });
 }
-
+*/

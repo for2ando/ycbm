@@ -9,8 +9,8 @@
 <link type="text/css" rel="stylesheet" href="js/jquery/jquery-ui.min.css" />
 <script type="text/javascript" src="js/jquery/jquery.cookie.js"></script>
 
-<script type="text/javascript" src="js/fancytree/jquery.fancytree-all.min.js"></script>
-<link type="text/css" rel="stylesheet" href="js/fancytree/skin-vista/ui.fancytree.min.css" />
+<script type="text/javascript" src="js/fancytree/jquery.fancytree-2.21.0-all.min.js"></script>
+<link type="text/css" rel="stylesheet" href="js/fancytree/skin-vista/2.21.0/ui.fancytree.min.css" />
 <!--
 <script src="js/splitter/jquery.splitter-0.14.0.js"></script>
 <link type="text/css" rel="stylesheet" href="js/splitter/jquery.splitter.css" />
@@ -37,15 +37,15 @@
 </ul>
 
 <div class="split-pane fixed-left" id="maincontainer">
-  <div class="split-pane-component" id="mainfolders">
-  Here is a folder pane.
-  </div>
+  <folders class="split-pane-component"></folders>
   <div class="split-pane-divider" id="maindivider"></div>
-  <div class="split-pane-component" id="maincontents">
-  Here is a contents pane.
-  </div>
-</div><!-- #mainpane -->
+  <contents class="split-pane-component"></contents>
+</div>
 
+<script>riot.mount('*')</script>
+<!--
+<script type="text/javascript" src="js/main2.js"></script>
+-->
 
 </body>
 </html>
