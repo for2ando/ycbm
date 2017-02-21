@@ -4,20 +4,19 @@
   <p>Here is a folders pane.</p>
   <div id='mainfolders'></div>
   
-  //riot.observable(this)
-  
   this.on('mount', function() {
-    chrome.bookmarks.getTree(function(bkmktree) {
-      var ul = bookmarks2foldersTree(bkmktree[0], 1)
+    chrome.bookmarks.getTree(function(bkmkTree) {
+      var ul = bookmarksToUList(bkmkTree[0], 1)
       $('#mainfolders', this.root).append(ul)
-      var fncytree = $('#mainfolders', this.root).fancytree({
+      var fncyTree = $('#mainfolders', this.root).fancytree({
         extensions: ['persist'],
         persist: {
           store: 'local'
         }
-        //keydown: mainfolders_keydown,
       })
+      $("#mainfolders", this.root).data('kbdBuffer', new Buffer)
     })
+    //$('#mainfolders', this.root).get(0).addEventListener('keydown', mainfolders_keydown, false)
+    this.root.addEventListener('keydown', mainfolders_keydown, false)
   })
-
 </folders>

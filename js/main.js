@@ -1,105 +1,91 @@
-// Constants
+// main.js
 
-function bookmarks2foldersTree(bmRoot, depth) {
-  if (depth > 2) return null;
-  var domRoot = document.createElement("ul");
+function bookmarksToUList(bmRoot, depth) {
+  if (depth > 2) return null
+  var domRoot = document.createElement('ul')
   if (bmRoot.parentId == null) { //isroot
-    domRoot.setAttribute("title", "root")
-    //domRoot.setAttribute("style", "display: none;");
+    domRoot.setAttribute('title', 'root')
+    //domRoot.setAttribute('style', 'display: none;')
   }
   for (i in bmRoot.children) {
     var bmNode = bmRoot.children[i]
     if (bmNode.url == null) { //isfolder
-      var li = document.createElement("li");
-      li.setAttribute("title", bmNode.title);
-      li.setAttribute("class", "folder");
-      li.setAttribute("lazy", "true");
-      li.appendChild(document.createTextNode(bmNode.title));
+      var li = document.createElement('li')
+      li.setAttribute('title', bmNode.title)
+      li.setAttribute('class', 'folder')
+      li.setAttribute('lazy', 'true')
+      li.appendChild(document.createTextNode(bmNode.title))
       if (bmNode.children.length > 0) {
-        var ul = bookmarks2foldersTree(bmNode, depth + 1);
+        var ul = bookmarks2foldersTree(bmNode, depth + 1)
         if (ul != null) {
-          li.appendChild(ul);
+          li.appendChild(ul)
         }
       }
-      domRoot.appendChild(li);
+      domRoot.appendChild(li)
     }
   }
-  return domRoot;
+  return domRoot
 }
+
+var BUFFER_TIMEOUT = 2000
 
 function Buffer() {
   this.str = ''
+  this.timeoutId = null
   this.clear = function() {
-    this.str= '';
+    this.str= ''
+    console.log("cleared")
   }
   this.append = function(ch) {
-    this.str += ch;
-    setTimeout(this.clear, 5000);
+    this.str += ch
+    if (this.timeoutId != null) { clearTimeout(this.timeoutId) }
+    var thisBuffer = this
+    this.timeoutId = setTimeout(function() { thisBuffer.clear() }, BUFFER_TIMEOUT)
   }
 }
 
-function getNext() {
-  var next;
-  if (self.isExpanded()) {
-    next = self.getFirstChild();
-    if (next != null) return next;
+function nextNode(node, cyclicp) {
+  var next
+  if (node.isExpanded()) {
+    next = node.getFirstChild()
+    if (next != null) return next
   }
-  next = self.getNextSibling();
-  if (next != null) return next;
-  next = self.getParent();
+  next = node.getNextSibling()
+  if (next != null) return next
+  next = node.getParent()
   if (next != null) {
-    return next.getNextSibling();
+    next = next.getNextSibling()
+    if (next != null) return next
+    return node.tree.rootNode.getFirstChild()
   }
-  return null;
+  return null
 }
 
-function findFirstWithSelf(str) {
+function findNode(startNode, str, cyclicp) {
+  console.log("search: '" + str + "'")
+  re = new RegExp('^' + str, 'i')
+  node = nextNode(startNode, cyclicp)
+  while (node != null) {// && node != startNode) {
+    if (node.title.match(re)) return node
+    if (node == startNode) return null
+    node = nextNode(node, cyclicp)
+  }
+  return null
+}
+
+function mainfolders_keydown(evt, data) {
+  console.log("code,key:  '" + evt.code + "','" + evt.key + "'," + evt.location)
   
-}
-
-function jumpTo(str) {
-  var current = $("#mainfolders").fancytree("getActiveNode");
-  console.log("active: " + current.title);
-  console.log("jumpTo: " + str);
-  var next = current.findFirst("/^" + str);
-  next.setActive();
-  //next.setFocus();
-}
-
-function mainfolders_keydown(event, data) {
-  console.log(event);
-  console.log(event.which);
-  cc = event.which;
-  //if (46 <= cc && cc <= 57 || 65 <= cc && cc <= 90
-}
-
-function mainfolders_keypress(event, data) {
-  console.log(event);
-  console.log(event.which);
-  var cc = String.fromCharCode(event.which);
-  console.log(cc);
-  if (cc >= ' ') {
-    var buffer = $("#mainfolders").data('buffer');
-    buffer.append(cc);
-    jumpTo(buffer.str);
+  //// incremental node-search (forward match)
+  var buffer = $('#mainfolders', this.root).data('kbdBuffer')
+  if (evt.key.length == 1) { // length == 1 means that evt.key is printable char.
+    var fncyTree = $('#mainfolders', this.root).fancytree('getTree')
+    //console.log('active-node: ', fncyTree.activeNode.title)
+    //console.log('focused-node: ', fncyTree.focusNode.title)
+    buffer.append(evt.key)
+    var nextNode = findNode(fncyTree.activeNode, buffer.str, true)
+    if (nextNode != null) { nextNode.setActive() } else { console.log("notfound") }
+  } else {
+    buffer.clear()
   }
 }
-
-/*
-window.onload = function() {
-  chrome.bookmarks.getTree(function(root) {
-    var ul = bookmarks2foldersTree(root[0], 1)
-    $('#mainfolders').append(ul);
-    var tree = $("#mainfolders").fancytree({
-      persist: true,
-      //keydown: mainfolders_keydown,
-    });
-    var fancytreeClass = $("#mainfolders").fancytree("getRootNode").prototype.constructor;
-    //fancytreeClass.prototype.getNext = getNext;
-    //fancytreeClass.prototype.findFirstWithSelf = findFirstWithSelf;
-    //fancytreeClass.prototype.findFirstWithSelf = function() {};
-    $("#mainfolders").data('buffer', new Buffer());
-    $("#mainfolders").keypress(mainfolders_keypress);
-  });
-}
-*/
