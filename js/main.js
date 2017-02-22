@@ -16,7 +16,7 @@ function bookmarksToUList(bmRoot, depth) {
       li.setAttribute('lazy', 'true')
       li.appendChild(document.createTextNode(bmNode.title))
       if (bmNode.children.length > 0) {
-        var ul = bookmarks2foldersTree(bmNode, depth + 1)
+        var ul = bookmarksToUList(bmNode, depth + 1)
         if (ul != null) {
           li.appendChild(ul)
         }
