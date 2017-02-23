@@ -84,7 +84,7 @@ function mainfolders_keydown(evt, data) {
     //console.log('focused-node: ', fncyTree.focusNode.title)
     buffer.append(evt.key)
     var nextNode = findNode(fncyTree.activeNode, buffer.str, true)
-    if (nextNode != null) { nextNode.setActive() } else { console.log("notfound") }
+    if (nextNode != null) { nextNode.setFocus() } else { console.log("notfound") }
   } else {
     buffer.clear()
   }

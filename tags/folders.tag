@@ -9,6 +9,7 @@
       var ul = bookmarksToUList(bkmkTree[0], 1)
       $('#mainfolders', this.root).append(ul)
       var fncyTree = $('#mainfolders', this.root).fancytree({
+        autoActivate: false,
         extensions: ['persist'],
         persist: {
           store: 'local'
