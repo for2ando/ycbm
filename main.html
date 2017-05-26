@@ -37,12 +37,12 @@
 </ul>
 
 <div class="split-pane fixed-left" id="maincontainer">
-  <folders class="split-pane-component"></folders>
+  <folders id="mainfolders" class="split-pane-component"></folders>
   <div class="split-pane-divider" id="maindivider"></div>
   <contents class="split-pane-component"></contents>
 </div>
 
-<script>riot.mount('*')</script>
+<script>riot.mount('#mainfolders', mainfolders_opts)</script>
 
 </body>
 </html>

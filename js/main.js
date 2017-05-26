@@ -1,5 +1,14 @@
 // main.js
 
+var mainfolders_opts = {
+  onmount: mainfolders_onmount,
+  onkeydown: mainfolders_keydown
+}
+
+function mainfolders_onmount(callback) {
+  chrome.bookmarks.getTree(callback)
+}
+
 function bookmarksToUList(bmRoot, depth) {
   if (depth > 2) return null
   var domRoot = document.createElement('ul')
