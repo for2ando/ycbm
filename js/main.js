@@ -1,8 +1,7 @@
 // main.js
 
 var mainfolders_opts = {
-  onmount: mainfolders_onmount,
-  onkeydown: mainfolders_keydown
+  onmount: mainfolders_onmount
 }
 
 function mainfolders_onmount(callback) {
@@ -42,7 +41,7 @@ function Buffer() {
   this.str = ''
   this.timeoutId = null
   this.clear = function() {
-    this.str= ''
+    this.str = ''
     console.log("cleared")
   }
   this.append = function(ch) {
