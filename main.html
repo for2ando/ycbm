@@ -10,39 +10,31 @@
 <script type="text/javascript" src="js/jquery/jquery.cookie.js"></script>
 
 <script type="text/javascript" src="js/fancytree/jquery.fancytree-2.21.0-all.min.js"></script>
-<link type="text/css" rel="stylesheet" href="js/fancytree/skin-vista/2.21.0/ui.fancytree.min.css" />
-<!--
-<script src="js/splitter/jquery.splitter-0.14.0.js"></script>
-<link type="text/css" rel="stylesheet" href="js/splitter/jquery.splitter.css" />
--->
-<script src="js/split-pane/split-pane.js"></script>
+<link type="text/css" rel="stylesheet" href="js/fancytree/skin-vista/2.21.0/ui.fancytree.min.css"/>
+<script type="text/javascript" src="js/split-pane/split-pane.js"></script>
 <link type="text/css" rel="stylesheet" href="js/split-pane/split-pane.css" />
 
-<script src="js/riot/riot.csp.min.js"></script>
-<script src="js/riot-tags.js"></script> <!-- riot pre-compiled custom tags -->
+<link rel="localizations" href="locale/l10n.json" type="application/x-l10n+json" />
+<script type="text/javascript" src="js/l10n/l10n.min.js"></script>
 
+<script type="text/javascript" src="js/riot/riot.csp.min.js"></script>
+<script type="text/javascript" src="js/riot-tags.js"></script><!--riot pre-compiled custom tags-->
 <script type="text/javascript" src="js/main.js"></script>
-<link type="text/css" rel="stylesheet" href="main.css" />
+<style type="riot"></style>
+<style type="text/css">
+  html,body {
+    height: 100%;
+  }
+</style>
 
 </head>
 <body>
 
+<bookmarkmanager></bookmarkmanager>
 
-
-
-<ul class="toolbar">
-  <li class="toolbaritem">Yet Another Bookmark Manager</li>
-  <li class="toolbaritem">--menu--</li>
-  <li class="toolbaritem">--searchbox--</li>
-</ul>
-
-<div class="split-pane fixed-left" id="maincontainer">
-  <folders id="mainfolders" class="split-pane-component"></folders>
-  <div class="split-pane-divider" id="maindivider"></div>
-  <contents class="split-pane-component"></contents>
-</div>
-
-<script>riot.mount('#mainfolders', mainfolders_opts)</script>
+<script>
+  riot.mount('bookmarkmanager')
+</script>
 
 </body>
 </html>

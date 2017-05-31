@@ -7,7 +7,7 @@
     "48": "icons/icon48.png",
     "128": "icons/icon128.png"
   },
-  "content_security_policy": "script-src 'self' 'sha256-g1OIupSXc8gKuDR93D8ptBPPPlnffKjiaU8G32drmeA='; object-src 'self'",
+  "content_security_policy": "script-src 'self' 'sha256-4zrTl4qa6y0NpT8zEed1cw3Zmbe7wuSzw+tksV+XPIk='; object-src 'self'",
   "permissions": [
     "bookmarks"
   ],
