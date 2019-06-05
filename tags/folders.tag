@@ -1,24 +1,73 @@
 <!-- The definition of folders tag -->
 
 <folders>
-  <p>Here is a folders pane.</p>
+  <div ref='toolbar' class='toolbar'>
+    <menubutton ref='foldersmenubutton'
+                title={title}>
+      <ul ref='menu'>
+        <li><a href='#'><lc>%FoldersMenuAddNewFolder</lc></a></li>
+        <li><a href='#'><lc>%FoldersMenuImportBookmarks</lc></a></li>
+        <li><a href='#'><lc>%FoldersMenuExportBookmarks</lc></a></li>
+      </ul>
+    </menubutton>
+  </div>
   <div ref='treeroot'></div>
   
+  <style>
+    [ref='toolbar'] {
+      height: 20pt;
+      background-color: #f6f6f6;
+    }
+    [ref='toolbar'] [ref='foldersmenubutton'].ui-button {
+      height: 100%;
+      position: relative;
+      left: 2px;
+    }
+    [ref='toolbar'] [ref='foldersmenubutton'].ui-state-default {
+      background-image: none;
+      background-color: #f6f6f6;
+    }
+    [ref='toolbar'] [ref='foldersmenubutton'] .ui-button-text {
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+    [ref='toolbar'] [ref='foldersmenubutton'] [ref='menu'].ui-menu {
+      z-index: 0;
+      width: 250px;
+    }
+    [ref='treeroot'] {
+      position: relative;
+      z-index: -1;
+    }
+  </style>
+  
+  this.title = lc('%FoldersMenuButton')
+  
   this.on('mount', function() {
-    this.root.addEventListener('keydown', folders_keydown, false)
+    //riot.mount('[ref="foldersmenubutton"]')
+    
+    this.root.addEventListener('keydown', this.folders_keydown, false)
+    
     var self = this
-    opts.onmount(function(bkmkTree) {
+    opts.folders_onmount(function(bkmkTree) {
       var ul = bookmarksToUList(bkmkTree[0], 1)
       self.refs.treeroot.append(ul)
-      var fncyTree = $('[ref="treeroot"]', self.root).fancytree({
+      var fncyTree = self.ref('treeroot').fancytree({
         autoActivate: false,
         extensions: ['persist'],
         persist: {
           store: 'local'
+        },
+        focus: function(evt, evdata) {
+          opts.folder__onfocus(evdata.node)
         }
       })
-      $('[ref="treeroot"]', self.root).data('kbdBuffer', new Buffer)
+      self.ref('treeroot').data('kbdBuffer', new Buffer)
     })
+  })
+  
+  this.on('update', function() {
+    console.log('<folders> update')
   })
   
   function bookmarksToUList(bmRoot, depth) {
@@ -48,13 +97,14 @@
     return domRoot
   }
   
-  function folders_keydown(evt, data) {
+  folders_keydown(evt, data) {
     //console.log("code,key:  '" + evt.code + "','" + evt.key + "'," + evt.location)
     
     //// incremental node-search (forward match)
-    var buffer = $('[ref="treeroot"]', this.root).data('kbdBuffer')
-    if (evt.key.length == 1) { // length == 1 means that evt.key is printable char.
-      var fncyTree = $('[ref="treeroot"]', this.root).fancytree('getTree')
+    var buffer = this.ref('treeroot').data('kbdBuffer')
+    if (evt.key.length == 1) {
+      // evt.key.length == 1 means that evt.key is printable char.
+      var fncyTree = this.ref('treeroot').fancytree('getTree')
       buffer.append(evt.key)
       var nextNode = findNode(fncyTree.activeNode, buffer.str, true)
       if (nextNode != null) { nextNode.setFocus() } //else { console.log("notfound") }

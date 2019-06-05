@@ -1,10 +1,22 @@
 {
   "en": {
     "%YetAnotherBookmarkManager": "Yet Another Bookmark Manager",
-    "%SearchBookmarks": "Search Bookmarks"
+    "%SearchBookmarks": "Search Bookmarks",
+    "%FoldersMenuButton": "Folder",
+    "%BookmarksMenuButton": "Bookmark",
+    "%FoldersMenuAddNewFolder": "Add New Folder",
+    "%FoldersMenuImportBookmarks": "Import Bookmarks",
+    "%FoldersMenuExportBookmarks": "Export Bookmarks",
+    "%BookmarksMenuAddNewBookmark": "Add New Bookmark"
   },
   "ja": {
     "%YetAnotherBookmarkManager": "もうひとつのブックマーク・マネージャ",
-    "%SearchBookmarks": "ブックマークの検索"
+    "%SearchBookmarks": "ブックマークの検索",
+    "%FoldersMenuButton": "フォルダ",
+    "%BookmarksMenuButton": "ブックマーク",
+    "%FoldersMenuAddNewFolder": "新しいフォルダを追加",
+    "%FoldersMenuImportBookmarks": "ブックマークをインポート",
+    "%FoldersMenuExportBookmarks": "ブックマークをエクスポート",
+    "%BookmarksMenuAddNewBookmark": "新しいブックマークを追加"
   }
 }
